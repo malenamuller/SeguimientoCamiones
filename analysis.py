@@ -47,7 +47,7 @@ class Camion:
                                     int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))
                     self.stopMoving = self.tiempo #ev['Fecha'][]
                     self.totalTime = self.totalTime + (self.stopMoving - self.startMoving)
-                    print("total time: ", int((self.totalTime)/60), ":",(self.totalTime)%60)
+                    #print("total time: ", int((self.totalTime)/60), "hs",(self.totalTime)%60, "mins")
                     if((self.stopMoving - self.startMoving)>DELTA_T):
                         print("WARNING: Exceso de delta t")
             else:
@@ -57,8 +57,8 @@ class Camion:
                     self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 + (
                             int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))
                     self.startMoving = self.tiempo
-                    if(self.stopMoving != 0):
-                        print("delta t quieto: ", int((self.startMoving-self.stopMoving)/60), ":",(self.startMoving-self.stopMoving  )%60)
+                    if((self.stopMoving != 0) & (self.beginWork != 0)):
+                        print("delta t quieto: ", int((self.startMoving-self.stopMoving)/60), "hs",(self.startMoving-self.stopMoving)%60, "mins")
                         if(((self.startMoving-self.stopMoving)>T_QUIETO) & (self.beginWork != 0)):
                             print("WARNING: tiempo quieto de mas")
                     print("startMoving: ", int((self.startMoving)/60), ":",(self.startMoving)%60)
@@ -69,7 +69,7 @@ class Camion:
         print("hora de finalizacion: ", int((self.endWork)/60), ":",(self.endWork)%60)
         if(self.endWork > T_FIN):
             print("WARNING: Termino tarde")
-        print("tiempo total andando: ", int((self.totalTime)/60), ":",(self.totalTime)%60)
+        print("tiempo total andando: ", int((self.totalTime)/60), "hs",(self.totalTime)%60, "mins")
         if(self.totalTime>T_MAX):
             print("WARNING: Se excedio del T_MAX")
 
@@ -88,9 +88,9 @@ def main():
             camiones[dominio] = Camion(dominio)
             camiones[dominio].nuevoDato(data[dato])
     for camion in camiones.keys():
-        print("BEGIN PROCESO INFOOO")
+       # print("BEGIN PROCESO INFOOO")
         camiones[camion].procesarInfo()
-        print (" END proceso infoooo")
+       # print (" END proceso infoooo")
 
 
 
