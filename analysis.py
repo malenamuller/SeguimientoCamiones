@@ -1,11 +1,11 @@
 import pandas as pd
 
-DELTA_T = 4*60 #4 horas en minutos
-T_INI = 6*6
-T_FIN = 22*60
-T_MAX = 12*60
-T_INI_MAX = 7*60
-T_QUIETO = 15
+DELTA_T = 4*60*60 #4 horas en segundos
+T_INI = 6*60*60
+T_FIN = 22*60*60
+T_MAX = 12*60*60
+T_INI_MAX = 7*60*60
+T_QUIETO = 15*60
 
 class Camion:
     def __init__(self,dominio):
@@ -43,10 +43,14 @@ class Camion:
             if (ev['Velocidad'] == 0):
                 if (self.moving==True):
                     self.moving = False
-                    self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 + (
-                                    int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))
-                    self.stopMoving = self.tiempo #ev['Fecha'][]
-                    print("stop moving: ", int((self.stopMoving)/60), ":",(self.stopMoving)%60)
+                    #   cambio
+                    self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 *60 + (
+                                    int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))* 60 + (
+                                    int(ev['Fecha'][17]) * 10 + int(ev['Fecha'][18]))
+                    self.stopMoving = self.tiempo  #ev['Fecha'][]
+                    print("stop moving: ", int((self.stopMoving)/(60*60)), ":",
+                          int(((self.stopMoving)%(60*60))/60), ":",
+                          int((self.stopMoving)%(60*60)%60))
                     self.totalTime = self.totalTime + (self.stopMoving - self.startMoving)
                     #print("total time: ", int((self.totalTime)/60), "hs",(self.totalTime)%60, "mins")
                     if((self.stopMoving - self.startMoving)>DELTA_T):
@@ -55,23 +59,36 @@ class Camion:
                 #print("distinta de cero")
                 if (self.moving == False):
                     self.moving = True
-                    self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 + (
-                            int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))
+                    #self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 + (
+                    #        int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))
+                    self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 * 60 + (
+                            int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]) )* 60 + (
+                            int(ev['Fecha'][17]) * 10 + int(ev['Fecha'][18]))
                     self.startMoving = self.tiempo
                     #if((self.stopMoving != 0) & (self.beginWork != 0)):
                     if (self.beginWork != 0):
-                        print("delta t quieto: ", int((self.startMoving-self.stopMoving)/60), "hs",(self.startMoving-self.stopMoving)%60, "mins")
+                        print("delta t quieto: ", int((self.startMoving-self.stopMoving)/(60*60)), "hs",
+                              int(((self.startMoving-self.stopMoving) % (60*60))/60), "mins",
+                              int((self.startMoving-self.stopMoving) % (60*60) % 60), "s" )
                         if(((self.startMoving-self.stopMoving)<T_QUIETO) & (self.beginWork != 0)):
                             print("WARNING: descanso poco")
-                    print("startMoving: ", int((self.startMoving)/60), ":",(self.startMoving)%60)
+                    print("startMoving: ", int((self.startMoving)/(60*60)), ":",
+                          int((self.startMoving) % (60*60)/60), ":",
+                          int(((self.startMoving) % (60*60)) % 60))
                     if (self.beginWork == 0):
                         self.beginWork = self.tiempo
-                        print("begin work: ", int((self.beginWork)/60), ":",(self.beginWork)%60)
+                        print("begin work: ", int((self.beginWork)/(60*60)), ":",
+                              int((self.beginWork) % (60*60)/60), ":",
+                              int(((self.beginWork) % (60*60)) % 60))
         self.endWork = self.stopMoving
-        print("hora de finalizacion: ", int((self.endWork)/60), ":",(self.endWork)%60)
+        print("hora de finalizacion: ", int((self.endWork)/(60*60)), ":",
+              int((self.endWork)%(60*60)/60), ":",
+              int(((self.endWork) % (60*60)) % 60))
         if(self.endWork > T_FIN):
             print("WARNING: Termino tarde")
-        print("tiempo total andando: ", int((self.totalTime)/60), "hs",(self.totalTime)%60, "mins")
+        print("tiempo total andando: ", int((self.totalTime)/(60*60)), "hs",
+              int((self.totalTime)%(60*60)/60), "mins",
+              int(((self.totalTime)%(60*60))%60))
         if(self.totalTime>T_MAX):
             print("WARNING: Se excedio del T_MAX")
 
@@ -90,10 +107,7 @@ def main():
             camiones[dominio] = Camion(dominio)
             camiones[dominio].nuevoDato(data[dato])
     for camion in camiones.keys():
-       # print("BEGIN PROCESO INFOOO")
         camiones[camion].procesarInfo()
-       # print (" END proceso infoooo")
-
 
 
 main()
