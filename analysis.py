@@ -29,7 +29,7 @@ class Camion:
 
            # print(ev['Velocidad'])
            # ev['Fecha'][0]
-            #print(ev['Fecha'])
+           #print(ev['Fecha'])
            # print(ev['Fecha'][11])
            #ev['Fecha'][11]     hora
            #ev['Fecha'][12]     hora
