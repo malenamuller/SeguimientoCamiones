@@ -41,11 +41,12 @@ class Camion:
            # self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 + (int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))
             #print ("tiempo: ", self.tiempo, "minutos")
             if (ev['Velocidad'] == 0):
-                if (self.moving):
+                if (self.moving==True):
                     self.moving = False
                     self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 + (
                                     int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))
                     self.stopMoving = self.tiempo #ev['Fecha'][]
+                    print("stop moving: ", int((self.stopMoving)/60), ":",(self.stopMoving)%60)
                     self.totalTime = self.totalTime + (self.stopMoving - self.startMoving)
                     #print("total time: ", int((self.totalTime)/60), "hs",(self.totalTime)%60, "mins")
                     if((self.stopMoving - self.startMoving)>DELTA_T):
@@ -57,10 +58,11 @@ class Camion:
                     self.tiempo = (int(ev['Fecha'][11]) * 10 + int(ev['Fecha'][12])) * 60 + (
                             int(ev['Fecha'][14]) * 10 + int(ev['Fecha'][15]))
                     self.startMoving = self.tiempo
-                    if((self.stopMoving != 0) & (self.beginWork != 0)):
+                    #if((self.stopMoving != 0) & (self.beginWork != 0)):
+                    if (self.beginWork != 0):
                         print("delta t quieto: ", int((self.startMoving-self.stopMoving)/60), "hs",(self.startMoving-self.stopMoving)%60, "mins")
-                        if(((self.startMoving-self.stopMoving)>T_QUIETO) & (self.beginWork != 0)):
-                            print("WARNING: tiempo quieto de mas")
+                        if(((self.startMoving-self.stopMoving)<T_QUIETO) & (self.beginWork != 0)):
+                            print("WARNING: descanso poco")
                     print("startMoving: ", int((self.startMoving)/60), ":",(self.startMoving)%60)
                     if (self.beginWork == 0):
                         self.beginWork = self.tiempo

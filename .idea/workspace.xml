@@ -27,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/analysis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
-              <caret line="59" column="46" selection-start-line="59" selection-start-column="46" selection-end-line="59" selection-end-column="46" />
+            <state relative-caret-position="139">
+              <caret line="48" column="90" selection-start-line="48" selection-start-column="90" selection-end-line="48" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -66,7 +66,7 @@
     <option name="x" value="41" />
     <option name="y" value="23" />
     <option name="width" value="1226" />
-    <option name="height" value="696" />
+    <option name="height" value="716" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -159,7 +159,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="41" y="23" width="1226" height="696" extended-state="0" />
+    <frame x="41" y="23" width="1226" height="716" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.117842324" />
@@ -167,7 +167,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.7201987" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37019232" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39900663" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -205,8 +205,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/analysis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="59" column="46" selection-start-line="59" selection-start-column="46" selection-end-line="59" selection-end-column="46" />
+        <state relative-caret-position="139">
+          <caret line="48" column="90" selection-start-line="48" selection-start-column="90" selection-end-line="48" selection-end-column="90" />
         </state>
       </provider>
     </entry>
